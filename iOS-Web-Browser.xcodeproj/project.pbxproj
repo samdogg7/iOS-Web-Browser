@@ -14,11 +14,11 @@
 		9F6DB1B226137F80004FB40A /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1A826137F80004FB40A /* TabManager.swift */; };
 		9F6DB1B326137F80004FB40A /* DomainExtensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB1A926137F80004FB40A /* DomainExtensions.txt */; };
 		9F6DB1B426137F80004FB40A /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AB26137F80004FB40A /* HelperExtensions.swift */; };
-		9F6DB1B526137F80004FB40A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AC26137F80004FB40A /* README.md */; };
 		9F6DB1B626137F80004FB40A /* TabTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AE26137F80004FB40A /* TabTableviewCell.swift */; };
 		9F6DB1B726137F80004FB40A /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1B026137F80004FB40A /* TabViewController.swift */; };
 		9F6DB1B826137F80004FB40A /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1B126137F80004FB40A /* BrowserViewController.swift */; };
 		9F6DB1CF26138086004FB40A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB1CE26138086004FB40A /* Main.storyboard */; };
+		9F7ECEA42641C6C0002C7746 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F7ECEA32641C6C0002C7746 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,11 +31,11 @@
 		9F6DB1A826137F80004FB40A /* TabManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
 		9F6DB1A926137F80004FB40A /* DomainExtensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DomainExtensions.txt; sourceTree = "<group>"; };
 		9F6DB1AB26137F80004FB40A /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
-		9F6DB1AC26137F80004FB40A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F6DB1AE26137F80004FB40A /* TabTableviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTableviewCell.swift; sourceTree = "<group>"; };
 		9F6DB1B026137F80004FB40A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		9F6DB1B126137F80004FB40A /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		9F6DB1CE26138086004FB40A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9F7ECEA32641C6C0002C7746 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +52,7 @@
 		9F6DB18526137E56004FB40A = {
 			isa = PBXGroup;
 			children = (
+				9F7ECEA32641C6C0002C7746 /* README.md */,
 				9F6DB19026137E56004FB40A /* iOS-Web-Browser */,
 				9F6DB18F26137E56004FB40A /* Products */,
 			);
@@ -78,7 +79,6 @@
 				9F6DB1CE26138086004FB40A /* Main.storyboard */,
 				9F6DB19C26137E56004FB40A /* LaunchScreen.storyboard */,
 				9F6DB1A926137F80004FB40A /* DomainExtensions.txt */,
-				9F6DB1AC26137F80004FB40A /* README.md */,
 				9F6DB19F26137E56004FB40A /* Info.plist */,
 			);
 			path = "iOS-Web-Browser";
@@ -176,8 +176,8 @@
 			files = (
 				9F6DB19E26137E56004FB40A /* LaunchScreen.storyboard in Resources */,
 				9F6DB1CF26138086004FB40A /* Main.storyboard in Resources */,
+				9F7ECEA42641C6C0002C7746 /* README.md in Resources */,
 				9F6DB19B26137E56004FB40A /* Assets.xcassets in Resources */,
-				9F6DB1B526137F80004FB40A /* README.md in Resources */,
 				9F6DB1B326137F80004FB40A /* DomainExtensions.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

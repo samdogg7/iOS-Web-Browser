@@ -28,9 +28,11 @@ class Tab {
     var contentSnapshot: UIImage?
     var historyIndex = 0
     var history: [String] =  [ "https://www.google.com/" ]
+    var pageTitle: String
     
     required init(index: Int) {
         self.index = index
+        self.pageTitle = history[historyIndex]
     }
     
     func getCurrentPage() -> String {
@@ -47,5 +49,9 @@ class Tab {
         if historyIndex > 0 {
             historyIndex -= 1
         }
+    }
+    
+    func updatePageTitle(_ pageTitle: String?) {
+        self.pageTitle = pageTitle ?? history[historyIndex]
     }
 }

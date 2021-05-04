@@ -254,6 +254,7 @@ extension BrowserViewController: WKNavigationDelegate {
                 }
             })
         }
+        self.tabManager.selectedTab.updatePageTitle(webView.title)
     }
 }
 
@@ -268,12 +269,12 @@ extension BrowserViewController: UITextFieldDelegate {
             //If there is no user input, direct to the home page
             if url == "" {
                 formattedURL = homePageUrl
-            //If the url does not appear to be a valid web address
+                //If the url does not appear to be a valid web address
             } else if !url.contains("https://") && !url.contains("www.") {
                 //Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension
                 if let pathExtension = URL(string: url)?.pathExtension, pathExtension != "", domainExtensions.contains(pathExtension) {
                     formattedURL = "https://\(formattedURL)"
-                //Presumed the user wanted to search a keyword
+                    //Presumed the user wanted to search a keyword
                 } else {
                     formattedURL = "http://www.google.com/search?q=\(formattedURL.replacingOccurrences(of: " ", with: "+"))"
                 }

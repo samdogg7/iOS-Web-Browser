@@ -45,7 +45,7 @@ class TabViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TabTableviewCell
         cell.tabViewControllerDelegate = self
-        cell.updateCell(cellIndex: indexPath.row, title: "Tab \(indexPath.row + 1)", contentSnapshot: tabAtIndex.contentSnapshot)
+        cell.updateCell(cellIndex: indexPath.row, title: tabAtIndex.pageTitle, contentSnapshot: tabAtIndex.contentSnapshot)
         return cell
     }
     
