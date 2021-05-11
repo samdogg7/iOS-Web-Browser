@@ -1,5 +1,7 @@
 #  iOS Web Browser README - Sam Doggett
 
+This project demonstrates my iOS development capabilities. The project mimics some of the basic features of Safari (mobile). I worked roughly 5-6 hours on this project for reference.
+
 # Coding practices 
 
 Currently I have the most experience with UIKit and prefer to use it programmatically. Storyboard merge conflicts can be difficult to maintain and get complicated as a codebase progresses. My interest in SwiftUI has grown over the past year as Apple continues to release new versions. SwiftUI does not allow for the full flexibility of UIKit; That being said, you can use both in tandem, allowing for a combination of efficient coding (SwiftUI) and maximal configurability (UIKit).
