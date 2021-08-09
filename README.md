@@ -6,9 +6,11 @@ This project demonstrates my iOS development capabilities. The project mimics so
 
 Currently I have the most experience with UIKit and prefer to use it programmatically. Storyboard merge conflicts can be difficult to maintain and get complicated as a codebase progresses. My interest in SwiftUI has grown over the past year as Apple continues to release new versions. SwiftUI does not allow for the full flexibility of UIKit; That being said, you can use both in tandem, allowing for a combination of efficient coding (SwiftUI) and maximal configurability (UIKit).
 
-    - I try to use lazy vars where applicable. This allows for better memory management within the app, as well as allows for closures to adjust an elements properties without cluttering up the class file.
-    - I like to use extensions to separate lifecycle methods from delegate methods or as a means to organize my class file. Class files (particularly view controllers) get out of hand in many code bases. Organizing class files allows for future developers to easily parse through the class and understand its structure.
-    - When passing data from child to parent, I prefer to use delegate methods. This allows for future changes to be tested and refactored with ease.
+I try to use lazy vars where applicable. This allows for better memory management within the app, as well as allows for closures to adjust an elements properties without cluttering up the class file.
+
+I like to use extensions to separate lifecycle methods from delegate methods or as a means to organize my class file. Class files (particularly view controllers) get out of hand in many code bases. Organizing class files allows for future developers to easily parse through the class and understand its structure.
+
+When passing data from child to parent, I prefer to use delegate methods. This allows for future changes to be tested and refactored with ease.
 
 In conclusion, I stick to practices that value readable, organized, code. 
 
