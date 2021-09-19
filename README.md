@@ -1,4 +1,4 @@
-#  ACME Web Browser README - Sam Doggett
+#  iOS Web Browser README - Sam Doggett
 
 Thank you for extending the opportunity to demonstrate my mobile development talents in the form of a project. This was a fun assignment!
 
@@ -9,7 +9,7 @@ I approached this project initially by finding inspiration from other competing 
 # How to build and run the project
 
 - This project does not use any third party frameworks
-- Open from the source folder ~/ACME-Web-Browser/ using Xcode. Press Product > Run to build and run the project
+- Open from the source folder ~/iOS-Web-Browser/ using Xcode. Press Product > Run to build and run the project
 
 # Coding practices 
 
@@ -25,7 +25,7 @@ In conclusion, I stick to practices that value readable, organized, code.
 ```
 * indicates not modified
 
-ACME-Web-Browser
+iOS-Web-Browser
 | AppDelegate.swift *
 | SceneDelegate.swift *
 | Assets.xcassets *

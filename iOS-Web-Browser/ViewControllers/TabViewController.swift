@@ -1,6 +1,6 @@
 //
 //  TabViewController.swift
-//  ACME-Web-Browser
+//  iOS-Web-Browser
 //
 //  Created by Sam Doggett on 3/24/21.
 //
@@ -13,17 +13,13 @@ protocol TabViewControllerDelegate {
 
 class TabViewController: UITableViewController {
     private let reuseIdentifier = "TabCell"
-    //Manages logic behind the tabs
-    private var tabManager: TabManager
     //Parent VC delegate
-    private var browserViewControllerDelegate: BrowserViewControllerDelegate
+    weak var delegate: BrowserViewControllerDelegate?
 
-    required init(browserViewControllerDelegate: BrowserViewControllerDelegate, tabManager: TabManager) {
-        self.tabManager = tabManager
-        self.browserViewControllerDelegate = browserViewControllerDelegate
+    required init() {
         super.init(style: .plain)
         
-        tableView.register(TabTableviewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(TabTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.separatorStyle = .none
         self.view.backgroundColor = .gray
     }
@@ -37,13 +33,13 @@ class TabViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tabManager.tabs.count
+        return TabManager.shared.tabs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tabAtIndex = tabManager.tabs[indexPath.row]
+        let tabAtIndex = TabManager.shared.tabs[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TabTableviewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TabTableViewCell
         cell.tabViewControllerDelegate = self
         cell.updateCell(cellIndex: indexPath.row, title: tabAtIndex.pageTitle, contentSnapshot: tabAtIndex.contentSnapshot)
         return cell
@@ -55,9 +51,8 @@ class TabViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Update the tabManagers selected tab
-        tabManager.selectedTab = tabManager.tabs[indexPath.row]
-        //Update the browser VC's tabManager
-        browserViewControllerDelegate.updateTabManager(manager: tabManager)
+        TabManager.shared.selectedTab = TabManager.shared.tabs[indexPath.row]
+        delegate?.reloadPage()
         //Pop back to the browser VC
         navigationController?.popViewController(animated: true)
     }
@@ -66,19 +61,19 @@ class TabViewController: UITableViewController {
 extension TabViewController: TabViewControllerDelegate {
     //Removes user selected tab
     func removeTab(index: Int) {
-        tabManager.tabs.remove(at: index)
+        TabManager.shared.tabs.remove(at: index)
         
         //If no tabs remaining, create a new one
-        if tabManager.tabs.count == 0 {
-            tabManager.newTab()
+        if TabManager.shared.tabs.count == 0 {
+            TabManager.shared.newTab()
+            delegate?.reloadPage()
         }
         
         //If the user removes the currently selected tab, make another tab selected by default
-        if index == tabManager.selectedTab.index {
-            tabManager.selectedTab = tabManager.tabs.first!
+        if index == TabManager.shared.selectedTab.index {
+            TabManager.shared.selectedTab = TabManager.shared.tabs.first!
+            delegate?.reloadPage()
         }
-        //Update the browser VC
-        browserViewControllerDelegate.updateTabManager(manager: tabManager)
         tableView.reloadData()
     }
 }

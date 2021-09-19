@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F29D9A926F50EF100963564 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9A826F50EF100963564 /* BookmarksViewController.swift */; };
+		9F29D9AB26F52A6200963564 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9AA26F52A6200963564 /* BrowserView.swift */; };
+		9F29D9AE26F52AD600963564 /* BrowserViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */; };
 		9F6DB19226137E56004FB40A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB19126137E56004FB40A /* AppDelegate.swift */; };
 		9F6DB19426137E56004FB40A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB19326137E56004FB40A /* SceneDelegate.swift */; };
 		9F6DB19B26137E56004FB40A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB19A26137E56004FB40A /* Assets.xcassets */; };
@@ -14,7 +17,7 @@
 		9F6DB1B226137F80004FB40A /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1A826137F80004FB40A /* TabManager.swift */; };
 		9F6DB1B326137F80004FB40A /* DomainExtensions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB1A926137F80004FB40A /* DomainExtensions.txt */; };
 		9F6DB1B426137F80004FB40A /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AB26137F80004FB40A /* HelperExtensions.swift */; };
-		9F6DB1B626137F80004FB40A /* TabTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AE26137F80004FB40A /* TabTableviewCell.swift */; };
+		9F6DB1B626137F80004FB40A /* TabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1AE26137F80004FB40A /* TabTableViewCell.swift */; };
 		9F6DB1B726137F80004FB40A /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1B026137F80004FB40A /* TabViewController.swift */; };
 		9F6DB1B826137F80004FB40A /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB1B126137F80004FB40A /* BrowserViewController.swift */; };
 		9F6DB1CF26138086004FB40A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB1CE26138086004FB40A /* Main.storyboard */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F29D9A826F50EF100963564 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		9F29D9AA26F52A6200963564 /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
+		9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9F6DB18E26137E56004FB40A /* iOS-Web-Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Web-Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F6DB19126137E56004FB40A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F6DB19326137E56004FB40A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,7 +37,7 @@
 		9F6DB1A826137F80004FB40A /* TabManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
 		9F6DB1A926137F80004FB40A /* DomainExtensions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DomainExtensions.txt; sourceTree = "<group>"; };
 		9F6DB1AB26137F80004FB40A /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
-		9F6DB1AE26137F80004FB40A /* TabTableviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTableviewCell.swift; sourceTree = "<group>"; };
+		9F6DB1AE26137F80004FB40A /* TabTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTableViewCell.swift; sourceTree = "<group>"; };
 		9F6DB1B026137F80004FB40A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		9F6DB1B126137F80004FB40A /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		9F6DB1CE26138086004FB40A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -49,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F29D9AC26F52AC500963564 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		9F6DB18526137E56004FB40A = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +83,7 @@
 		9F6DB19026137E56004FB40A /* iOS-Web-Browser */ = {
 			isa = PBXGroup;
 			children = (
+				9F29D9AC26F52AC500963564 /* Protocols */,
 				9F6DB1AF26137F80004FB40A /* ViewControllers */,
 				9F6DB1AD26137F80004FB40A /* Views */,
 				9F6DB1A726137F80004FB40A /* Managers */,
@@ -103,7 +118,8 @@
 		9F6DB1AD26137F80004FB40A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9F6DB1AE26137F80004FB40A /* TabTableviewCell.swift */,
+				9F29D9AA26F52A6200963564 /* BrowserView.swift */,
+				9F6DB1AE26137F80004FB40A /* TabTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +129,7 @@
 			children = (
 				9F6DB1B026137F80004FB40A /* TabViewController.swift */,
 				9F6DB1B126137F80004FB40A /* BrowserViewController.swift */,
+				9F29D9A826F50EF100963564 /* BookmarksViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -189,10 +206,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F29D9A926F50EF100963564 /* BookmarksViewController.swift in Sources */,
 				9F6DB1B826137F80004FB40A /* BrowserViewController.swift in Sources */,
+				9F29D9AB26F52A6200963564 /* BrowserView.swift in Sources */,
 				9F6DB1B226137F80004FB40A /* TabManager.swift in Sources */,
 				9F6DB1B426137F80004FB40A /* HelperExtensions.swift in Sources */,
-				9F6DB1B626137F80004FB40A /* TabTableviewCell.swift in Sources */,
+				9F6DB1B626137F80004FB40A /* TabTableViewCell.swift in Sources */,
+				9F29D9AE26F52AD600963564 /* BrowserViewControllerDelegate.swift in Sources */,
 				9F6DB19226137E56004FB40A /* AppDelegate.swift in Sources */,
 				9F6DB1B726137F80004FB40A /* TabViewController.swift in Sources */,
 				9F6DB19426137E56004FB40A /* SceneDelegate.swift in Sources */,

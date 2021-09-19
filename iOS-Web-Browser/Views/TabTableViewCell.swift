@@ -1,13 +1,13 @@
 //
 //  TabCollectionViewCell.swift
-//  ACME-Web-Browser
+//  iOS-Web-Browser
 //
 //  Created by Sam Doggett on 3/24/21.
 //
 
 import UIKit
 
-class TabTableviewCell: UITableViewCell {
+class TabTableViewCell: UITableViewCell {
     //Contains the tab title, as well as delete button
     private lazy var headerStack: UIStackView = {
         let stack = UIStackView()

@@ -1,17 +1,19 @@
 //
 //  BrowserTabManager.swift
-//  ACME-Web-Browser
+//  iOS-Web-Browser
 //
 //  Created by Sam Doggett on 3/24/21.
 //
 
 import UIKit
 
-class TabManager {
+@objcMembers class TabManager: NSObject {
     var tabs = [Tab]()
     var selectedTab: Tab
     
-    required init() {
+    static let shared = TabManager()
+    
+    private override init(){
         selectedTab = Tab(index: 0)
         tabs.append(selectedTab)
     }
