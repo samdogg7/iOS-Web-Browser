@@ -12,20 +12,25 @@ protocol TabViewControllerDelegate {
 }
 
 class TabViewController: UITableViewController {
-    private let reuseIdentifier = "TabCell"
-    //Parent VC delegate
-    weak var delegate: BrowserViewControllerDelegate?
-
-    required init() {
-        super.init(style: .plain)
-        
-        tableView.register(TabTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.separatorStyle = .none
-        self.view.backgroundColor = .gray
-    }
+    //Creates a new tab
+     private lazy var newTabButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: delegate, action: #selector(delegate?.newTabPressed))
+        return button
+    }()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    //Parent VC delegate
+    weak var delegate: BrowserViewControllerDelegate? {
+        didSet {
+            navigationItem.rightBarButtonItem = newTabButton
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.register(TabTableViewCell.self, forCellReuseIdentifier: TabTableViewCell.reuseIdentifier)
+        tableView.separatorStyle = .none
+        view.backgroundColor = .gray
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -39,7 +44,7 @@ class TabViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tabAtIndex = TabManager.shared.tabs[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! TabTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TabTableViewCell.reuseIdentifier) as! TabTableViewCell
         cell.tabViewControllerDelegate = self
         cell.updateCell(cellIndex: indexPath.row, title: tabAtIndex.pageTitle, contentSnapshot: tabAtIndex.contentSnapshot)
         return cell

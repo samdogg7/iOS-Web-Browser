@@ -15,6 +15,7 @@ class BrowserViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     //An array of domain extensions used to deduce if a user is searching for specific url or wants to search by keyword
     private lazy var domainExtensions: [String] = {
         if let path = Bundle.main.path(forResource: "DomainExtensions", ofType: "txt") {
@@ -111,6 +112,7 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     @objc func newTabPressed() {
         TabManager.shared.newTab()
         reloadPage()
+        navigationController?.popViewController(animated: true)
     }
     //Bookmarks view controller presented
     @objc func bookmarksPressed() {
@@ -119,7 +121,10 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     }
     //Share view presented
     @objc func sharePressed() {
+        guard let currentUrl = TabManager.shared.selectedTab.getCurrentPageUrl() else { return }
         
+        let vc = SharePageActivityViewController(title: TabManager.shared.selectedTab.pageTitle, url: currentUrl)
+        present(vc, animated: true, completion: nil)
     }
 }
 
@@ -175,8 +180,7 @@ extension BrowserViewController: UITextFieldDelegate {
                 formattedURL = "\(formattedURL)/"
             }
             //Add new search to history
-            TabManager.shared.selectedTab.history.append(formattedURL)
-            TabManager.shared.selectedTab.historyIndex += 1
+            TabManager.shared.selectedTab.addPageToHistory(url: formattedURL)
             //Update web view
             updateWebViewContent(url: formattedURL)
             //Hide keyboard

@@ -43,12 +43,6 @@ class BrowserView: UIView {
      lazy var bottomBarStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()
-    //A stack to pair the back/forward history buttons together
-     lazy var historyButtonStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
         return stack
     }()
@@ -74,14 +68,6 @@ class BrowserView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "square.on.square"), for: .normal)
         button.addTarget(delegate, action: #selector(delegate?.tabPressed), for: .touchUpInside)
-        return button
-    }()
-    //Creates a new tab
-     lazy var newTabButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.addTarget(delegate, action: #selector(delegate?.newTabPressed), for: .touchUpInside)
         return button
     }()
     //Shares current page
@@ -125,21 +111,20 @@ class BrowserView: UIView {
         self.addSubview(webView)
         self.addSubview(bottomBarStack)
         
-        bottomBarStack.addArrangedSubview(historyButtonStack)
-        bottomBarStack.addArrangedSubview(newTabButton)
+        bottomBarStack.addArrangedSubview(backButton)
+        bottomBarStack.addArrangedSubview(forwardButton)
+        bottomBarStack.addArrangedSubview(shareButton)
+        bottomBarStack.addArrangedSubview(bookmarksButton)
         bottomBarStack.addArrangedSubview(tabButton)
-        
-        historyButtonStack.addArrangedSubview(backButton)
-        historyButtonStack.addArrangedSubview(forwardButton)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        urlTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
+        urlTextField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         urlTextField.bottomAnchor.constraint(equalTo: webView.topAnchor).isActive = true
-        urlTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        urlTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        urlTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        urlTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         urlTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         urlTextField.layer.cornerRadius = 5
@@ -147,15 +132,12 @@ class BrowserView: UIView {
         urlTextField.layer.borderColor = UIColor.black.cgColor
         
         webView.bottomAnchor.constraint(equalTo: bottomBarStack.topAnchor).isActive = true
-        webView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        webView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        webView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        bottomBarStack.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        bottomBarStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        bottomBarStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        bottomBarStack.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bottomBarStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        bottomBarStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         bottomBarStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        historyButtonStack.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        newTabButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
 }

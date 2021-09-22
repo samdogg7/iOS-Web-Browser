@@ -41,3 +41,17 @@ extension UIImageView {
         return .init(width: newWidth, height: newHeight)
     }
 }
+
+// Credit: Stephen Feuerstein
+// Source: https://stephenf.codes/blog/easy-to-use-cell-reuse-extensions
+
+protocol ReusableView {}
+
+extension ReusableView where Self: UIView {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
+extension UITableViewCell: ReusableView { }
+extension UICollectionViewCell: ReusableView { }

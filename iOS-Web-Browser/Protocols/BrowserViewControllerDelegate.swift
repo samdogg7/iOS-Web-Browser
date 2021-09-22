@@ -17,4 +17,5 @@ import WebKit
     @objc func newTabPressed()
     @objc func bookmarksPressed()
     @objc func sharePressed()
+    func updateWebViewContent(url: String)
 }
