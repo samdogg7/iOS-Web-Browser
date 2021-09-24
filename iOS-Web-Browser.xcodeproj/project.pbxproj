@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0130A026FE4C1400E51C16 /* BookmarkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F01309F26FE4C1400E51C16 /* BookmarkActivity.swift */; };
+		9F0130A226FE54AD00E51C16 /* TabViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0130A126FE54AD00E51C16 /* TabViewControllerDelegate.swift */; };
 		9F29D9A926F50EF100963564 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9A826F50EF100963564 /* BookmarksViewController.swift */; };
 		9F29D9AB26F52A6200963564 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9AA26F52A6200963564 /* BrowserView.swift */; };
 		9F29D9AE26F52AD600963564 /* BrowserViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */; };
@@ -14,7 +16,6 @@
 		9F29D9B326F7A1FB00963564 /* SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9B226F7A1FB00963564 /* SingleSection.swift */; };
 		9F29D9B526F7A24000963564 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9B426F7A24000963564 /* Tab.swift */; };
 		9F29D9B726F7A29E00963564 /* BookmarkedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9B626F7A29E00963564 /* BookmarkedPage.swift */; };
-		9F29D9B926F7A6F200963564 /* SharePageActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D9B826F7A6F200963564 /* SharePageActivityViewController.swift */; };
 		9F6DB19226137E56004FB40A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB19126137E56004FB40A /* AppDelegate.swift */; };
 		9F6DB19426137E56004FB40A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DB19326137E56004FB40A /* SceneDelegate.swift */; };
 		9F6DB19B26137E56004FB40A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F6DB19A26137E56004FB40A /* Assets.xcassets */; };
@@ -30,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F01309F26FE4C1400E51C16 /* BookmarkActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkActivity.swift; sourceTree = "<group>"; };
+		9F0130A126FE54AD00E51C16 /* TabViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9F29D9A826F50EF100963564 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		9F29D9AA26F52A6200963564 /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
 		9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +40,6 @@
 		9F29D9B226F7A1FB00963564 /* SingleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSection.swift; sourceTree = "<group>"; };
 		9F29D9B426F7A24000963564 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		9F29D9B626F7A29E00963564 /* BookmarkedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedPage.swift; sourceTree = "<group>"; };
-		9F29D9B826F7A6F200963564 /* SharePageActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePageActivityViewController.swift; sourceTree = "<group>"; };
 		9F6DB18E26137E56004FB40A /* iOS-Web-Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Web-Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F6DB19126137E56004FB40A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F6DB19326137E56004FB40A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				9F29D9AD26F52AD600963564 /* BrowserViewControllerDelegate.swift */,
+				9F0130A126FE54AD00E51C16 /* TabViewControllerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -79,6 +82,7 @@
 				9F29D9B226F7A1FB00963564 /* SingleSection.swift */,
 				9F29D9B426F7A24000963564 /* Tab.swift */,
 				9F29D9B626F7A29E00963564 /* BookmarkedPage.swift */,
+				9F01309F26FE4C1400E51C16 /* BookmarkActivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -152,7 +156,6 @@
 				9F6DB1B026137F80004FB40A /* TabViewController.swift */,
 				9F6DB1B126137F80004FB40A /* BrowserViewController.swift */,
 				9F29D9A826F50EF100963564 /* BookmarksViewController.swift */,
-				9F29D9B826F7A6F200963564 /* SharePageActivityViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -233,13 +236,14 @@
 				9F6DB1B826137F80004FB40A /* BrowserViewController.swift in Sources */,
 				9F29D9AB26F52A6200963564 /* BrowserView.swift in Sources */,
 				9F6DB1B226137F80004FB40A /* TabManager.swift in Sources */,
+				9F0130A026FE4C1400E51C16 /* BookmarkActivity.swift in Sources */,
 				9F29D9B026F79D3200963564 /* BookmarkTableViewCell.swift in Sources */,
 				9F29D9B726F7A29E00963564 /* BookmarkedPage.swift in Sources */,
-				9F29D9B926F7A6F200963564 /* SharePageActivityViewController.swift in Sources */,
 				9F6DB1B426137F80004FB40A /* HelperExtensions.swift in Sources */,
 				9F6DB1B626137F80004FB40A /* TabTableViewCell.swift in Sources */,
 				9F29D9B526F7A24000963564 /* Tab.swift in Sources */,
 				9F29D9AE26F52AD600963564 /* BrowserViewControllerDelegate.swift in Sources */,
+				9F0130A226FE54AD00E51C16 /* TabViewControllerDelegate.swift in Sources */,
 				9F6DB19226137E56004FB40A /* AppDelegate.swift in Sources */,
 				9F29D9B326F7A1FB00963564 /* SingleSection.swift in Sources */,
 				9F6DB1B726137F80004FB40A /* TabViewController.swift in Sources */,

@@ -1,9 +1,9 @@
-//
+// 
 //  SceneDelegate.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 3/30/21.
-//
+// 
 
 import UIKit
 

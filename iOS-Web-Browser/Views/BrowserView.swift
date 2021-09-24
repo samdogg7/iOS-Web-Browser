@@ -1,22 +1,22 @@
-//
+// 
 //  BrowserView.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 9/17/21.
-//
+// 
 
 import WebKit
 import UIKit
 
 class BrowserView: UIView {
-    //Displays web content
+    // Displays web content
     lazy var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.allowsBackForwardNavigationGestures = true
         return webView
     }()
-    //User input field for the search they are executing
+    // User input field for the search they are executing
     lazy var urlTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -25,13 +25,13 @@ class BrowserView: UIView {
         textField.rightViewMode = .always
         textField.returnKeyType = .search
         
-        //Add a 10pts of padding to left side of textfield
+        // Add a 10pts of padding to left side of textfield
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 1.0))
         textField.leftViewMode = .always
         
         return textField
     }()
-    //Reloads the current page
+    // Reloads the current page
      lazy var reloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -39,14 +39,14 @@ class BrowserView: UIView {
         button.addTarget(delegate, action: #selector(delegate?.reloadPage), for: .touchUpInside)
         return button
     }()
-    //A stack that is similar to a tab bar, but with a little more control (and ease)
+    // A stack that is similar to a tab bar, but with a little more control (and ease)
      lazy var bottomBarStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
         return stack
     }()
-    //Moves the user forward in their history
+    // Moves the user forward in their history
      lazy var forwardButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ class BrowserView: UIView {
         button.addTarget(delegate, action: #selector(delegate?.forwardPressed), for: .touchUpInside)
         return button
     }()
-    //Moves the user backward in their history
+    // Moves the user backward in their history
      lazy var backButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class BrowserView: UIView {
         button.addTarget(delegate, action: #selector(delegate?.backPressed), for: .touchUpInside)
         return button
     }()
-    //Pushes the tab management VC to navigation stack
+    // Pushes the tab management VC to navigation stack
      lazy var tabButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +70,7 @@ class BrowserView: UIView {
         button.addTarget(delegate, action: #selector(delegate?.tabPressed), for: .touchUpInside)
         return button
     }()
-    //Shares current page
+    // Shares current page
      lazy var shareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class BrowserView: UIView {
         button.addTarget(delegate, action: #selector(delegate?.sharePressed), for: .touchUpInside)
         return button
     }()
-    //Presents bookmarks view controller
+    // Presents bookmarks view controller
      lazy var bookmarksButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +105,7 @@ class BrowserView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //Adds subviews and arranged subviews to their parents
+    // Adds subviews and arranged subviews to their parents
     private func setupViews() {
         self.addSubview(urlTextField)
         self.addSubview(webView)

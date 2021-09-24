@@ -1,20 +1,11 @@
 //
-//  SharePageActivityViewController.swift
+//  BookmarkActivity.swift
 //  iOS-Web-Browser
 //
-//  Created by Sam Doggett on 9/19/21.
+//  Created by Sam Doggett on 9/24/21.
 //
 
 import UIKit
-
-class SharePageActivityViewController: UIActivityViewController {
-    init(title: String, url: URL) {
-        let activity = BookmarkActivity(title: title, currentUrl: url)
-        super.init(activityItems: [url], applicationActivities: [activity])
-        self.title = title
-        self.isModalInPresentation = true
-    }
-}
 
 class BookmarkActivity: UIActivity {
     var title: String
@@ -60,8 +51,4 @@ class BookmarkActivity: UIActivity {
         }
         
     }
-}
-
-extension UIActivity.ActivityType {
-    static let customActivity = UIActivity.ActivityType("customActivity")
 }

@@ -1,13 +1,14 @@
-//
+// 
 //  BrowserViewDelegate.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 9/17/21.
-//
+// 
 
 import UIKit
 import WebKit
 
+// MARK: - BrowserViewControllerDelegate: This delegate is used by the browser view to call the button press actions
 @objc protocol BrowserViewControllerDelegate: WKNavigationDelegate, UITextFieldDelegate {
     // References from our BrowserView buttons
     @objc func reloadPage()

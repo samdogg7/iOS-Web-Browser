@@ -1,9 +1,9 @@
-//
+// 
 //  BookmarkTableViewCell.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 9/19/21.
-//
+// 
 
 import UIKit
 
@@ -44,6 +44,8 @@ class BookmarkTableViewCell: UITableViewCell {
         
         mainStack.addArrangedSubview(titleLabel)
         mainStack.addArrangedSubview(chevronImageView)
+        
+        contentView.addShadow()
     }
     
     override func layoutSubviews() {

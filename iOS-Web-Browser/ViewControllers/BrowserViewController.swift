@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 
 class BrowserViewController: UIViewController {
+    // This view contains all of the UI elements of the BrowserViewController
     private lazy var browserView: BrowserView = {
         let view = BrowserView()
         view.delegate = self
@@ -16,7 +17,7 @@ class BrowserViewController: UIViewController {
         return view
     }()
     
-    //An array of domain extensions used to deduce if a user is searching for specific url or wants to search by keyword
+    // An array of domain extensions used to deduce if a user is searching for specific url or wants to search by keyword
     private lazy var domainExtensions: [String] = {
         if let path = Bundle.main.path(forResource: "DomainExtensions", ofType: "txt") {
             do {
@@ -34,7 +35,7 @@ class BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Load the default url
+        // Load the default url
         if let url = URL(string: TabManager.shared.selectedTab.getCurrentPage()) {
             browserView.urlTextField.text = url.absoluteString
             browserView.webView.load(URLRequest(url: url))
@@ -43,12 +44,14 @@ class BrowserViewController: UIViewController {
         // Add the browser view
         view.addSubview(browserView)
     }
-    //When this view controller is presented, hide the nav bar to maximize screen real estate
+    
+    // When this view controller is presented, hide the nav bar to maximize screen real estate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    //When this view controller disappears, enable the navigation bar
+    
+    // When this view controller disappears, enable the navigation bar
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -56,13 +59,13 @@ class BrowserViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //Check if the back button should be enabled or not (when on new tab, shouldn't be able to go back)
+        // Check if the back button should be enabled or not (when on new tab, shouldn't be able to go back)
         if TabManager.shared.selectedTab.history.count == 1 || TabManager.shared.selectedTab.historyIndex == 0 {
             browserView.backButton.isEnabled = false
         } else {
             browserView.backButton.isEnabled = true
         }
-        //Check if the forward button should be enabled or not (when on most recent page, shouldn't be able to go forward)
+        // Check if the forward button should be enabled or not (when on most recent page, shouldn't be able to go forward)
         if TabManager.shared.selectedTab.history.count - 1 == TabManager.shared.selectedTab.historyIndex {
             browserView.forwardButton.isEnabled = false
         } else {
@@ -75,7 +78,7 @@ class BrowserViewController: UIViewController {
         browserView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
-    //Updates webView's content and updates the user input textfield
+    // Updates webView's content and updates the user input textfield
     func updateWebViewContent(url: String) {
         if let url = URL(string: url) {
             browserView.webView.load(URLRequest(url: url))
@@ -86,51 +89,54 @@ class BrowserViewController: UIViewController {
     }
 }
 
-//MARK: - BrowserViewControllerDelegate methods, used to handle button presses
+// MARK: - BrowserViewControllerDelegate methods, used to handle button presses
 extension BrowserViewController: BrowserViewControllerDelegate {
-    //Reloads the current page
+    // Reloads the current page
     @objc func reloadPage() {
         updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
     }
-    //Moves forward in the history stack
+    // Moves forward in the history stack
     @objc func forwardPressed() {
         TabManager.shared.selectedTab.moveForwardHistory()
         updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
     }
-    //Moves backward in the history stack
+    // Moves backward in the history stack
     @objc func backPressed() {
         TabManager.shared.selectedTab.moveBackHistory()
         updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
     }
-    //Tab manager `VC` is opened
+    // Tab manager `VC` is opened
     @objc func tabPressed() {
         let vc = TabViewController()
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    //New tab is added
+    // New tab is added
     @objc func newTabPressed() {
         TabManager.shared.newTab()
         reloadPage()
         navigationController?.popViewController(animated: true)
     }
-    //Bookmarks view controller presented
+    // Bookmarks view controller presented
     @objc func bookmarksPressed() {
         let vc = BookmarksViewController()
         present(vc, animated: true, completion: nil)
     }
-    //Share view presented
+    // Share view presented
     @objc func sharePressed() {
         guard let currentUrl = TabManager.shared.selectedTab.getCurrentPageUrl() else { return }
         
-        let vc = SharePageActivityViewController(title: TabManager.shared.selectedTab.pageTitle, url: currentUrl)
+        let activity = BookmarkActivity(title: TabManager.shared.selectedTab.pageTitle, currentUrl: currentUrl)
+
+        let vc = UIActivityViewController(activityItems: [currentUrl], applicationActivities: [activity])
+        
         present(vc, animated: true, completion: nil)
     }
 }
 
-//MARK: - WKNavigationDelegate methods
+// MARK: - WKNavigationDelegate methods
 extension BrowserViewController: WKNavigationDelegate {
-    //Check if the user navigated to a new page from within the webView content (not search bar)
+    // Check if the user navigated to a new page from within the webView content (not search bar)
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         let currentPage = TabManager.shared.selectedTab.getCurrentPage()
         
@@ -141,7 +147,8 @@ extension BrowserViewController: WKNavigationDelegate {
             browserView.urlTextField.text = url
         }
     }
-    //Each time a page is done loading, add a snapshot of the content to the tab manager
+    
+    // Each time a page is done loading, add a snapshot of the content to the tab manager
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if #available(iOS 11.0, *) {
             webView.takeSnapshot(with: nil, completionHandler: { (image, error) in
@@ -154,36 +161,37 @@ extension BrowserViewController: WKNavigationDelegate {
     }
 }
 
-//MARK: - UITextFieldDelegate methods
+// MARK: - UITextFieldDelegate methods
 extension BrowserViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let url = textField.text {
             var formattedURL = url.lowercased()
             
-            //If I were to work on this project longer, I would make a robust Regex to handle user input
+            // If I were to work on this project longer, I would make a robust Regex to handle user input
             
-            //If there is no user input, direct to the home page
+            // If there is no user input, direct to the home page
             if url == "" {
                 formattedURL = homePageUrl
-                //If the url does not appear to be a valid web address
+                // If the url does not appear to be a valid web address
             } else if !url.contains("https://") && !url.contains("www.") {
-                //Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension
+                // Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension
                 if let pathExtension = URL(string: url)?.pathExtension, pathExtension != "", domainExtensions.contains(pathExtension) {
                     formattedURL = "https://\(formattedURL)"
-                    //Presumed the user wanted to search a keyword
+                    // Presumed the user wanted to search a keyword
                 } else {
                     formattedURL = "http://www.google.com/search?q=\(formattedURL.replacingOccurrences(of: " ", with: "+"))"
                 }
             }
-            //Make sure all urls end in a '/'
+            // Make sure all urls end in a '/'
             if !formattedURL.hasSuffix("/") {
                 formattedURL = "\(formattedURL)/"
             }
-            //Add new search to history
+            
+            // Add new search to history
             TabManager.shared.selectedTab.addPageToHistory(url: formattedURL)
-            //Update web view
+            // Update web view
             updateWebViewContent(url: formattedURL)
-            //Hide keyboard
+            // Hide keyboard
             browserView.urlTextField.resignFirstResponder()
         }
         return true

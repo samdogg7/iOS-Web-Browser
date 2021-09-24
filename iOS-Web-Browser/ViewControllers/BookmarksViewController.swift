@@ -1,9 +1,9 @@
-//
+// 
 //  BookmarksViewController.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 9/17/21.
-//
+// 
 
 import UIKit
 
@@ -11,11 +11,25 @@ typealias DataSource = UITableViewDiffableDataSource<SingleSection, BookmarkedPa
 typealias Snapshot = NSDiffableDataSourceSnapshot<SingleSection, BookmarkedPage>
 
 class BookmarksViewController: UIViewController {
+    private lazy var headerStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Bookmarks"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.reuseIdentifier)
-        table.separatorStyle = .none
+        table.separatorStyle = .singleLine
         table.delegate = self
         return table
     }()
@@ -35,6 +49,7 @@ class BookmarksViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Favorites"
+        view.backgroundColor = .white
         
         setupViews()
     }
@@ -48,7 +63,11 @@ class BookmarksViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        headerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        headerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: headerStack.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -56,7 +75,10 @@ class BookmarksViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(tableView)
+        view.addSubview(headerStack)
         tableView.dataSource = dataSource
+        
+        headerStack.addArrangedSubview(titleLabel)
     }
     
     private func makeDataSource() -> DataSource {
@@ -69,11 +91,11 @@ class BookmarksViewController: UIViewController {
     }
     
     
-    private func applySnapshot(animatingDifferences: Bool = true) {
+    private func applySnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections(SingleSection.allCases)
         snapshot.appendItems(bookmarks)
-        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
@@ -101,7 +123,7 @@ extension BookmarksViewController: UITableViewDelegate {
         // Adds selected page to history
         TabManager.shared.selectedTab.addPageToHistory(url: bookmark.url.absoluteString)
         
-        //Pop back to the browser VC
+        // Pop back to the browser VC
         navigationController?.popViewController(animated: true)
     }
 }

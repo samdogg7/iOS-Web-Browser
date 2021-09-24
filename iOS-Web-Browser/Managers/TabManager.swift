@@ -1,9 +1,9 @@
-//
+// 
 //  BrowserTabManager.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 3/24/21.
-//
+// 
 
 import UIKit
 

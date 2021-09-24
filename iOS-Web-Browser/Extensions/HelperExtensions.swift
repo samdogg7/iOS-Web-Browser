@@ -1,18 +1,18 @@
 //
 //  HelperExtensions.swift
 //  iOS-Web-Browser
-//
+// 
 //  Created by Sam Doggett on 3/26/21.
-//
+// 
 
 import UIKit
 
 extension UIImageView {
     /**
-     Credit for the following func: https://stackoverflow.com/a/14498978
+     Credit for the following func: https:// stackoverflow.com/a/14498978
      I needed a helper function to calculate the size of an image within an ImageView
      after using aspectFit. Rather than making this up myself, I searched stack overflow.
-    **/
+     **/
     var imageSizeAfterAspectFit: CGSize {
         var newWidth: CGFloat
         var newHeight: CGFloat
@@ -37,13 +37,13 @@ extension UIImageView {
                 newWidth = newWidth + CGFloat(diff) / newWidth * newWidth
                 newHeight = frame.size.height
             }
-        }
-        return .init(width: newWidth, height: newHeight)
+        }        
+        return CGSize(width: newWidth, height: newHeight)
     }
 }
 
 // Credit: Stephen Feuerstein
-// Source: https://stephenf.codes/blog/easy-to-use-cell-reuse-extensions
+// Source: https:// stephenf.codes/blog/easy-to-use-cell-reuse-extensions
 
 protocol ReusableView {}
 
@@ -55,3 +55,49 @@ extension ReusableView where Self: UIView {
 
 extension UITableViewCell: ReusableView { }
 extension UICollectionViewCell: ReusableView { }
+
+extension UIActivity.ActivityType {
+    static let customActivity = UIActivity.ActivityType("customActivity")
+}
+
+extension UIView {
+    func roundCorners(_ radius: CGFloat = 15) {
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
+    }
+    
+    func addBorder(width: CGFloat = 1, color: UIColor = .black) {
+        layer.borderWidth = width
+        layer.borderColor = color.cgColor
+    }
+    
+    func addShadow(cornerRadius: CGFloat = 15, shadowColor: UIColor = UIColor(white: 0.0, alpha: 0.5),
+                   shadowOffset: CGSize = CGSize(width: 0.0, height: 3.0), shadowOpacity: Float = 0.3,
+                   shadowRadius: CGFloat = 5) {
+        
+        layer.cornerRadius = cornerRadius
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOffset = shadowOffset
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = shadowRadius
+    }
+    
+    func takeScreenshot(size: CGSize) -> UIImage {
+
+        // Begin context
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+
+        // Draw view in that context
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+
+        // And finally, get image
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        if (image != nil)
+        {
+            return image!
+        }
+        return UIImage()
+    }
+}
