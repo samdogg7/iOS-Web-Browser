@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: BookmarkedPage - This represents a bookmarked page
 class BookmarkedPage: Codable, Hashable {
     var title: String
     var url: URL

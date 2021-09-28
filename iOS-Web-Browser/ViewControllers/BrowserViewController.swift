@@ -18,6 +18,8 @@ class BrowserViewController: UIViewController {
     }()
     
     // An array of domain extensions used to deduce if a user is searching for specific url or wants to search by keyword
+    // Ideally this would be have a more robust deduction of whether a user is looking to use a search engine vs.
+    // Manually adding a site by URL
     private lazy var domainExtensions: [String] = {
         if let path = Bundle.main.path(forResource: "DomainExtensions", ofType: "txt") {
             do {
@@ -29,14 +31,12 @@ class BrowserViewController: UIViewController {
         }
         return [ ".com", ".net", ".org", ".co" ]
     }()
-    
-    private let homePageUrl = "http://www.google.com/"
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load the default url
-        if let url = URL(string: TabManager.shared.selectedTab.getCurrentPage()) {
+        if let url = URL(string: TabManager.shared.homePage) {
             browserView.urlTextField.text = url.absoluteString
             browserView.webView.load(URLRequest(url: url))
         }
@@ -83,7 +83,7 @@ class BrowserViewController: UIViewController {
         if let url = URL(string: url) {
             browserView.webView.load(URLRequest(url: url))
         } else {
-            browserView.webView.load(URLRequest(url: URL(string: homePageUrl)!))
+            browserView.webView.load(URLRequest(url: URL(string: TabManager.shared.homePage)!))
         }
         browserView.urlTextField.text = url
     }
@@ -126,9 +126,16 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     @objc func sharePressed() {
         guard let currentUrl = TabManager.shared.selectedTab.getCurrentPageUrl() else { return }
         
-        let activity = BookmarkActivity(title: TabManager.shared.selectedTab.pageTitle, currentUrl: currentUrl)
+        // Allows for the user to add currentUrl to bookmarks
+        let bookmarkActivity = BookmarkActivity(title: TabManager.shared.selectedTab.pageTitle, currentUrl: currentUrl)
 
-        let vc = UIActivityViewController(activityItems: [currentUrl], applicationActivities: [activity])
+        let vc = UIActivityViewController(activityItems: [currentUrl], applicationActivities: [bookmarkActivity])
+        
+        // Excluded certain types of activities to improve performance
+        vc.excludedActivityTypes = [ .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFlickr, .postToTencentWeibo, .saveToCameraRoll, .postToVimeo, .postToWeibo, .print ]
+        
+        // The following line is required when using activity vc on iPad
+        vc.popoverPresentationController?.sourceView = self.view
         
         present(vc, animated: true, completion: nil)
     }
@@ -171,7 +178,7 @@ extension BrowserViewController: UITextFieldDelegate {
             
             // If there is no user input, direct to the home page
             if url == "" {
-                formattedURL = homePageUrl
+                formattedURL = TabManager.shared.homePage
                 // If the url does not appear to be a valid web address
             } else if !url.contains("https://") && !url.contains("www.") {
                 // Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension

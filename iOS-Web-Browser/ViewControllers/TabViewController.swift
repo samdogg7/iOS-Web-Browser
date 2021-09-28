@@ -56,7 +56,7 @@ extension TabViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update the tabManagers selected tab
-        TabManager.shared.selectedTab = TabManager.shared.tabs[indexPath.row]
+        TabManager.shared.selectedTabIndex = indexPath.row
         delegate?.reloadPage()
         // Pop back to the browser VC
         navigationController?.popViewController(animated: true)
@@ -74,9 +74,9 @@ extension TabViewController: TabViewControllerDelegate {
             delegate?.reloadPage()
         }
         
-        // If the user removes the currently selected tab, make another tab selected by default
+        // If the user removes the currently selected tab, make the first tab selected by default
         if index == TabManager.shared.selectedTab.index {
-            TabManager.shared.selectedTab = TabManager.shared.tabs.first!
+            TabManager.shared.selectedTabIndex = 0
             delegate?.reloadPage()
         }
         tableView.reloadData()
