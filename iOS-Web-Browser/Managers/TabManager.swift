@@ -15,6 +15,9 @@ import UIKit
     In the case of this project, I chose to use this singleton for two reasons:
     Primarily, I wanted to make sure there was a single instance that was referenced throughout the project.
     Secondarily, I wanted to make the code easy to read for people that are unfamiliar with the project.
+ 
+    Read more in my README.MD
+ 
  */
 
 // MARK: TabManager - A singleton managing the current tabs throughout the app
@@ -31,7 +34,7 @@ import UIKit
     // Default page to direct user to
     let homePage = "http://www.google.com/"
     
-    // Singleton reference
+    // Singleton reference (read above or README.MD)
     static let shared = TabManager()
     
     private override init(){

@@ -79,10 +79,10 @@
 		9F29D9B126F7A1F000963564 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F01309F26FE4C1400E51C16 /* BookmarkActivity.swift */,
+				9F29D9B626F7A29E00963564 /* BookmarkedPage.swift */,
 				9F29D9B226F7A1FB00963564 /* SingleSection.swift */,
 				9F29D9B426F7A24000963564 /* Tab.swift */,
-				9F29D9B626F7A29E00963564 /* BookmarkedPage.swift */,
-				9F01309F26FE4C1400E51C16 /* BookmarkActivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -143,9 +143,9 @@
 		9F6DB1AD26137F80004FB40A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F29D9AF26F79D3200963564 /* BookmarkTableViewCell.swift */,
 				9F29D9AA26F52A6200963564 /* BrowserView.swift */,
 				9F6DB1AE26137F80004FB40A /* TabTableViewCell.swift */,
-				9F29D9AF26F79D3200963564 /* BookmarkTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -153,9 +153,9 @@
 		9F6DB1AF26137F80004FB40A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				9F6DB1B026137F80004FB40A /* TabViewController.swift */,
-				9F6DB1B126137F80004FB40A /* BrowserViewController.swift */,
 				9F29D9A826F50EF100963564 /* BookmarksViewController.swift */,
+				9F6DB1B126137F80004FB40A /* BrowserViewController.swift */,
+				9F6DB1B026137F80004FB40A /* TabViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

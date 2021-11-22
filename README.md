@@ -15,32 +15,43 @@ I like to use extensions to separate lifecycle methods from delegate methods or 
 
 When passing data from child to parent, I prefer to use delegate methods. This allows for future changes to be tested and refactored with ease.
 
+In the case of this project, I made a design decision to use a singleton for global access of the TabManager. Singletons should be used sparingly and I like to avoid them when possible. Not only does one sacrifice transparency for convenience when using a singleton, but also creates technical debt. For the sake of simplicity in this small scale app, I deemed it appropriate to use global access in this instance for the management of Tabs. If I were not to use a singleton for TabManagement, I would create a TabManagerDelegate which could be passed to objects instead.
+
 In conclusion, I stick to practices that value readable, organized, code. 
 
 # Folder structure and contents
 ```
 * indicates not modified
 
-iOS-Web-Browser
-| AppDelegate.swift *
-| SceneDelegate.swift *
-| Assets.xcassets *
-| LaunchScreen.storyboard *
-| Info.plist *
-| DomainExtensions.txt              - List of strings that represent domain extensions (ex: .com, .org, .net)
-| README.md                         - Read more about the project :)
-| Main.storyboard                   - Setup navigation controller + set up BrowserViewController as root VC.
-|
-|---ViewControllers                 - Contains view controllers used in the project
-|   | BrowserViewController.swift   - BrowserViewController is the main VC representing the browser
-|   | TabViewController.swift       - TabViewController is the VC for tab management, allowing users to switch and delete tabs
-|   
-|---Views                           - Contains custom views   
-|   | TabTableviewCell.swift        - TabTableViewCell is the reusable cell used to represent a tab in tab management
-|   
-|---Managers                        - Contains the logic based classes that are not VC's
-|   | TabManager                    - TabManager handles the logic behind the tab management of a user
-|
-|---Extensions                      - Extensions
-|   | HelperExtensions              - This extension file will allow for easier reuse of common functions
+├── README.md - Read more about the project :)
+├── iOS-Web-Browser
+│   ├── AppDelegate.swift *
+│   ├── Info.plist *
+│   ├── SceneDelegate.swift *
+│   ├── Main.storyboard                     - Setup navigation controller + set up BrowserViewController as root VC.
+│   ├── Assets.xcassets                     - App Icon
+│   ├── Base.lproj *
+│   │   └── LaunchScreen.storyboard *
+│   ├── DomainExtensions.txt                - List of strings that represent domain extensions (ex: .com, .org, .net)
+│   ├── Managers
+│   │   └── TabManager.swift                - Singleton that handles the tab logic. Why singleton? Read above.
+│   ├── Models
+│   │   ├── BookmarkActivity.swift          - Custom activity that enables the user to add a bookmark for a given page
+│   │   ├── BookmarkedPage.swift            - Bookmark data
+│   │   ├── SingleSection.swift             - Section enum for a a single section diffable view
+│   │   └── Tab.swift                       - Tab data
+│   ├── Protocols
+│   │   ├── BrowserViewControllerDelegate.swift     - BrowserView to BrowserViewController communication
+│   │   └── TabViewControllerDelegate.swift         - TabViewController to TabTableViewCell communication
+│   ├── Extensions
+│   │   └── HelperExtensions.swift          - This extension file will allow for easier reuse of common functions
+│   ├── ViewControllers
+│   │   ├── BookmarksViewController.swift   - The ViewController containing the main browser functionality
+│   │   ├── BrowserViewController.swift     - The ViewController for handling Bookmarks
+│   │   └── TabViewController.swift         - The ViewController for tab management, allowing users to switch and delete tabs
+│   └── Views
+│       ├── BookmarkTableViewCell.swift     - Reusable cell used to represent a bookmark
+│       ├── BrowserView.swift               - The view for the BrowserViewController
+│       └── TabTableViewCell.swift          - Reusable cell used to represent a tab in tab management
 ```
+
