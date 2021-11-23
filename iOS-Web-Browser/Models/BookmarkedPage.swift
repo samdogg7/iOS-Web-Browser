@@ -26,3 +26,21 @@ class BookmarkedPage: Codable, Hashable {
         return lhs.title == rhs.title && rhs.url == lhs.url
     }
 }
+
+extension BookmarkedPage {
+    func storeBookmark() {
+        // If there are other bookmarks saved, decode them, add the new bookmark and save the updated array
+        if let data = UserDefaults.standard.data(forKey: "bookmarks"),
+            var bookmarkedPages = try? JSONDecoder().decode([BookmarkedPage].self, from: data) {
+            bookmarkedPages.append(self)
+            let data = try? JSONEncoder().encode(bookmarkedPages)
+            UserDefaults.standard.setValue(data, forKey: "bookmarks")
+        }
+        // Otherwise save the new bookmark in an array
+        else
+        {
+            let data = try? JSONEncoder().encode([self])
+            UserDefaults.standard.setValue(data, forKey: "bookmarks")
+        }
+    }
+}

@@ -120,6 +120,7 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     // Bookmarks view controller presented
     @objc func bookmarksPressed() {
         let vc = BookmarksViewController()
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
     // Share view presented
@@ -134,8 +135,7 @@ extension BrowserViewController: BrowserViewControllerDelegate {
         // Excluded certain types of activities to improve performance
         vc.excludedActivityTypes = [ .airDrop, .assignToContact, .markupAsPDF, .openInIBooks, .postToFlickr, .postToTencentWeibo, .saveToCameraRoll, .postToVimeo, .postToWeibo, .print ]
         
-        // The following line is required when using activity vc on iPad
-        vc.popoverPresentationController?.sourceView = self.view
+        vc.popoverPresentationController?.sourceView = self.browserView
         
         present(vc, animated: true, completion: nil)
     }
@@ -164,6 +164,7 @@ extension BrowserViewController: WKNavigationDelegate {
                 }
             })
         }
+        // Update with the current website title
         TabManager.shared.selectedTab.updatePageTitle(webView.title)
     }
 }
@@ -177,12 +178,12 @@ extension BrowserViewController: UITextFieldDelegate {
             // If I were to work on this project longer, I would make a robust Regex to handle user input
             
             // If there is no user input, direct to the home page
-            if url == "" {
+            if formattedURL == "" {
                 formattedURL = TabManager.shared.homePage
                 // If the url does not appear to be a valid web address
-            } else if !url.contains("https://") && !url.contains("www.") {
+            } else if !formattedURL.contains("https://") && !formattedURL.contains("www.") {
                 // Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension
-                if let pathExtension = URL(string: url)?.pathExtension, pathExtension != "", domainExtensions.contains(pathExtension) {
+                if let pathExtension = URL(string: formattedURL)?.pathExtension, pathExtension != "", domainExtensions.contains(pathExtension) {
                     formattedURL = "https://\(formattedURL)"
                     // Presumed the user wanted to search a keyword
                 } else {

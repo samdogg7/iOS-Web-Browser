@@ -34,6 +34,21 @@ class BookmarksViewController: UIViewController {
         return table
     }()
     
+    private lazy var doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Done", for: .normal)
+        button.setTitleColor(.link, for: .normal)
+        button.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var divider: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .separator
+        return view
+    }()
+    
     private lazy var dataSource = makeDataSource()
     
     private lazy var bookmarks: [BookmarkedPage] = {
@@ -67,7 +82,11 @@ class BookmarksViewController: UIViewController {
         headerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         headerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: headerStack.bottomAnchor).isActive = true
+        divider.topAnchor.constraint(equalTo: headerStack.bottomAnchor).isActive = true
+        divider.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: divider.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -76,9 +95,11 @@ class BookmarksViewController: UIViewController {
     private func setupViews() {
         view.addSubview(tableView)
         view.addSubview(headerStack)
+        view.addSubview(divider)
         tableView.dataSource = dataSource
         
         headerStack.addArrangedSubview(titleLabel)
+        headerStack.addArrangedSubview(doneButton)
     }
     
     private func makeDataSource() -> DataSource {
@@ -96,6 +117,10 @@ class BookmarksViewController: UIViewController {
         snapshot.appendSections(SingleSection.allCases)
         snapshot.appendItems(bookmarks)
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    @objc func donePressed() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -124,6 +149,6 @@ extension BookmarksViewController: UITableViewDelegate {
         TabManager.shared.selectedTab.addPageToHistory(url: bookmark.url.absoluteString)
         
         // Pop back to the browser VC
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }
