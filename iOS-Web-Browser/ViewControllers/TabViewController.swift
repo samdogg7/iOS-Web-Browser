@@ -38,11 +38,11 @@ extension TabViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TabManager.shared.tabs.count
+        return delegate?.tabManager.tabs.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tabAtIndex = TabManager.shared.tabs[indexPath.row]
+        guard let tabAtIndex = delegate?.tabManager.tabs[indexPath.row] else { return UITableViewCell() }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TabTableViewCell.reuseIdentifier) as! TabTableViewCell
         cell.tabViewControllerDelegate = self
@@ -56,7 +56,7 @@ extension TabViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update the tabManagers selected tab
-        TabManager.shared.selectedTabIndex = indexPath.row
+        delegate?.tabManager.selectedTabIndex = indexPath.row
         delegate?.reloadPage()
         // Pop back to the browser VC
         navigationController?.popViewController(animated: true)
@@ -66,17 +66,17 @@ extension TabViewController {
 extension TabViewController: TabViewControllerDelegate {
     // Removes user selected tab
     func removeTab(index: Int) {
-        TabManager.shared.tabs.remove(at: index)
+        delegate?.tabManager.tabs.remove(at: index)
         
         // If no tabs remaining, create a new one
-        if TabManager.shared.tabs.count == 0 {
-            TabManager.shared.newTab()
+        if delegate?.tabManager.tabs.count == 0 {
+            delegate?.tabManager.newTab()
             delegate?.reloadPage()
         }
         
         // If the user removes the currently selected tab, make the first tab selected by default
-        if index == TabManager.shared.selectedTab.index {
-            TabManager.shared.selectedTabIndex = 0
+        if index == delegate?.tabManager.selectedTab.index {
+            delegate?.tabManager.selectedTabIndex = 0
             delegate?.reloadPage()
         }
         tableView.reloadData()

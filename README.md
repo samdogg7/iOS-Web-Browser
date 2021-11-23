@@ -15,8 +15,6 @@ I like to use extensions to separate lifecycle methods from delegate methods or 
 
 When passing data from child to parent, I prefer to use delegate methods. This allows for future changes to be tested and refactored with ease.
 
-In the case of this project, I made a design decision to use a singleton for global access of the TabManager. Singletons should be used sparingly and I like to avoid them when possible. Not only does one sacrifice transparency for convenience when using a singleton, but also creates technical debt. For the sake of simplicity in this small scale app, I deemed it appropriate to use global access in this instance for the management of Tabs. If I were not to use a singleton for TabManagement, I would create a TabManagerDelegate which could be passed to objects instead.
-
 In conclusion, I stick to practices that value readable, organized, code. 
 
 # Folder structure and contents
@@ -27,14 +25,13 @@ In conclusion, I stick to practices that value readable, organized, code.
 ├── iOS-Web-Browser
 │   ├── AppDelegate.swift *
 │   ├── Info.plist *
-│   ├── SceneDelegate.swift *
-│   ├── Main.storyboard                     - Setup navigation controller + set up BrowserViewController as root VC.
+│   ├── SceneDelegate.swift                 - Removed main.storyboard, setup initial view controller here
 │   ├── Assets.xcassets                     - App Icon
 │   ├── Base.lproj *
 │   │   └── LaunchScreen.storyboard *
 │   ├── DomainExtensions.txt                - List of strings that represent domain extensions (ex: .com, .org, .net)
 │   ├── Managers
-│   │   └── TabManager.swift                - Singleton that handles the tab logic. Why singleton? Read above.
+│   │   └── TabManager.swift                - Manages all of the currently opened tabs
 │   ├── Models
 │   │   ├── BookmarkActivity.swift          - Custom activity that enables the user to add a bookmark for a given page
 │   │   ├── BookmarkedPage.swift            - Bookmark data

@@ -7,7 +7,13 @@
 
 import UIKit
 
-typealias DataSource = UITableViewDiffableDataSource<SingleSection, BookmarkedPage>
+class DataSource: UITableViewDiffableDataSource<SingleSection, BookmarkedPage> {
+    // Enables swipe functionality on cells
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+}
+
 typealias Snapshot = NSDiffableDataSourceSnapshot<SingleSection, BookmarkedPage>
 
 class BookmarksViewController: UIViewController {
@@ -130,7 +136,7 @@ extension BookmarksViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TabManager.shared.tabs.count
+        return delegate?.tabManager.tabs.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -146,9 +152,34 @@ extension BookmarksViewController: UITableViewDelegate {
         delegate?.updateWebViewContent(url: bookmark.url.absoluteString)
         
         // Adds selected page to history
-        TabManager.shared.selectedTab.addPageToHistory(url: bookmark.url.absoluteString)
+        delegate?.tabManager.selectedTab.addPageToHistory(url: bookmark.url.absoluteString)
         
         // Pop back to the browser VC
         dismiss(animated: true, completion: nil)
+    }
+    
+    // Enables user to swipe to delete a bookmark
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            // If there are other bookmarks saved, decode them, remove the bookmark and save the updated array
+            if let data = UserDefaults.standard.data(forKey: "bookmarks"),
+                var bookmarkedPages = try? JSONDecoder().decode([BookmarkedPage].self, from: data) {
+                bookmarkedPages.remove(at: indexPath.row)
+                let data = try? JSONEncoder().encode(bookmarkedPages)
+                UserDefaults.standard.setValue(data, forKey: "bookmarks")
+            } else { // Otherwise delete the saved bookmark
+                UserDefaults.standard.removeObject(forKey: "bookmarks")
+            }
+            
+            self.bookmarks.remove(at: indexPath.row)
+            self.applySnapshot()
+            
+            completionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        deleteAction.image = UIImage(systemName: "trash")
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
 }

@@ -39,8 +39,8 @@ class Tab {
     
     // Adds a page to the history array
     func addPageToHistory(url: String) {
-        TabManager.shared.selectedTab.history.append(url)
-        TabManager.shared.selectedTab.historyIndex += 1
+        self.history.append(url)
+        self.historyIndex += 1
     }
     
     // Shifts the history pointer forward

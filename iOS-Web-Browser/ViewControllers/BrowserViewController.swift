@@ -31,12 +31,23 @@ class BrowserViewController: UIViewController {
         }
         return [ ".com", ".net", ".org", ".co" ]
     }()
-        
+    
+    var tabManager: TabManager
+    
+    init(_ tabManager: TabManager) {
+        self.tabManager = tabManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load the default url
-        if let url = URL(string: TabManager.shared.homePage) {
+        if let url = URL(string: tabManager.homePage) {
             browserView.urlTextField.text = url.absoluteString
             browserView.webView.load(URLRequest(url: url))
         }
@@ -60,13 +71,13 @@ class BrowserViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // Check if the back button should be enabled or not (when on new tab, shouldn't be able to go back)
-        if TabManager.shared.selectedTab.history.count == 1 || TabManager.shared.selectedTab.historyIndex == 0 {
+        if tabManager.selectedTab.history.count == 1 || tabManager.selectedTab.historyIndex == 0 {
             browserView.backButton.isEnabled = false
         } else {
             browserView.backButton.isEnabled = true
         }
         // Check if the forward button should be enabled or not (when on most recent page, shouldn't be able to go forward)
-        if TabManager.shared.selectedTab.history.count - 1 == TabManager.shared.selectedTab.historyIndex {
+        if tabManager.selectedTab.history.count - 1 == tabManager.selectedTab.historyIndex {
             browserView.forwardButton.isEnabled = false
         } else {
             browserView.forwardButton.isEnabled = true
@@ -83,7 +94,7 @@ class BrowserViewController: UIViewController {
         if let url = URL(string: url) {
             browserView.webView.load(URLRequest(url: url))
         } else {
-            browserView.webView.load(URLRequest(url: URL(string: TabManager.shared.homePage)!))
+            browserView.webView.load(URLRequest(url: URL(string: tabManager.homePage)!))
         }
         browserView.urlTextField.text = url
     }
@@ -93,17 +104,17 @@ class BrowserViewController: UIViewController {
 extension BrowserViewController: BrowserViewControllerDelegate {
     // Reloads the current page
     @objc func reloadPage() {
-        updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
+        updateWebViewContent(url: tabManager.selectedTab.getCurrentPage())
     }
     // Moves forward in the history stack
     @objc func forwardPressed() {
-        TabManager.shared.selectedTab.moveForwardHistory()
-        updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
+        tabManager.selectedTab.moveForwardHistory()
+        updateWebViewContent(url: tabManager.selectedTab.getCurrentPage())
     }
     // Moves backward in the history stack
     @objc func backPressed() {
-        TabManager.shared.selectedTab.moveBackHistory()
-        updateWebViewContent(url: TabManager.shared.selectedTab.getCurrentPage())
+        tabManager.selectedTab.moveBackHistory()
+        updateWebViewContent(url: tabManager.selectedTab.getCurrentPage())
     }
     // Tab manager `VC` is opened
     @objc func tabPressed() {
@@ -113,7 +124,7 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     }
     // New tab is added
     @objc func newTabPressed() {
-        TabManager.shared.newTab()
+        tabManager.newTab()
         reloadPage()
         navigationController?.popViewController(animated: true)
     }
@@ -125,10 +136,10 @@ extension BrowserViewController: BrowserViewControllerDelegate {
     }
     // Share view presented
     @objc func sharePressed() {
-        guard let currentUrl = TabManager.shared.selectedTab.getCurrentPageUrl() else { return }
+        guard let currentUrl = tabManager.selectedTab.getCurrentPageUrl() else { return }
         
         // Allows for the user to add currentUrl to bookmarks
-        let bookmarkActivity = BookmarkActivity(title: TabManager.shared.selectedTab.pageTitle, currentUrl: currentUrl)
+        let bookmarkActivity = BookmarkActivity(title: tabManager.selectedTab.pageTitle, currentUrl: currentUrl)
 
         let vc = UIActivityViewController(activityItems: [currentUrl], applicationActivities: [bookmarkActivity])
         
@@ -145,12 +156,12 @@ extension BrowserViewController: BrowserViewControllerDelegate {
 extension BrowserViewController: WKNavigationDelegate {
     // Check if the user navigated to a new page from within the webView content (not search bar)
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        let currentPage = TabManager.shared.selectedTab.getCurrentPage()
+        let currentPage = tabManager.selectedTab.getCurrentPage()
         
         if let url = webView.url?.absoluteString, url != currentPage {
             print("User navigated from \(url) to \(currentPage)")
-            TabManager.shared.selectedTab.history.append(url)
-            TabManager.shared.selectedTab.historyIndex += 1
+            tabManager.selectedTab.history.append(url)
+            tabManager.selectedTab.historyIndex += 1
             browserView.urlTextField.text = url
         }
     }
@@ -160,12 +171,12 @@ extension BrowserViewController: WKNavigationDelegate {
         if #available(iOS 11.0, *) {
             webView.takeSnapshot(with: nil, completionHandler: { (image, error) in
                 if let snapshotImage = image {
-                    TabManager.shared.selectedTab.contentSnapshot = snapshotImage
+                    self.tabManager.selectedTab.contentSnapshot = snapshotImage
                 }
             })
         }
         // Update with the current website title
-        TabManager.shared.selectedTab.updatePageTitle(webView.title)
+        tabManager.selectedTab.updatePageTitle(webView.title)
     }
 }
 
@@ -179,7 +190,7 @@ extension BrowserViewController: UITextFieldDelegate {
             
             // If there is no user input, direct to the home page
             if formattedURL == "" {
-                formattedURL = TabManager.shared.homePage
+                formattedURL = tabManager.homePage
                 // If the url does not appear to be a valid web address
             } else if !formattedURL.contains("https://") && !formattedURL.contains("www.") {
                 // Check if it was meant to be a valid address (if user did not add https:// or www.) check if it contains a domain extension
@@ -196,7 +207,7 @@ extension BrowserViewController: UITextFieldDelegate {
             }
             
             // Add new search to history
-            TabManager.shared.selectedTab.addPageToHistory(url: formattedURL)
+            tabManager.selectedTab.addPageToHistory(url: formattedURL)
             // Update web view
             updateWebViewContent(url: formattedURL)
             // Hide keyboard

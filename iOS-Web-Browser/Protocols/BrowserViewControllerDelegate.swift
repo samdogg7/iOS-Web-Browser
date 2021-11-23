@@ -19,4 +19,5 @@ import WebKit
     @objc func bookmarksPressed()
     @objc func sharePressed()
     func updateWebViewContent(url: String)
+    var tabManager: TabManager { get }
 }
